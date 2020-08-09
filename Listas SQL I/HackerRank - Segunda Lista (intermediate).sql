@@ -87,3 +87,33 @@ ORDER BY [occupation_count], [occupation];
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 /* Print Prime Numbers - Write a query to print all prime numbers less than or equal to 1000. Print your result on a single line, and use the ampersand (&) character as your separator (instead of a space). Output Example: 2&3&5&7 */
 
+
+DECLARE @RANGE [int] = 1
+DECLARE @PRIMOS [varchar](max) = '2'
+
+WHILE (@RANGE < 1000)
+BEGIN
+	DECLARE @CONT [int] = @RANGE-1
+	WHILE (@CONT>0)
+	BEGIN
+		IF (@RANGE%@CONT = 0)
+		BEGIN
+			BREAK
+		END
+		ELSE
+		BEGIN
+			IF @CONT = 2
+			BEGIN
+				SET @PRIMOS = @PRIMOS+'&'+CAST(@RANGE AS VARCHAR(3))
+			END
+		END
+		SET @CONT = @CONT - 1
+	END
+	SET @RANGE = @RANGE + 1
+END
+
+PRINT(@PRIMOS)
+
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/*  */
