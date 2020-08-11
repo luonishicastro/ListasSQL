@@ -171,3 +171,54 @@ FROM (
 ) AS c
 GROUP BY c.rnk
 ORDER BY c.rnk;
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* Table BST */
+
+
+DROP TABLE IF EXISTS [DBO].[BST];
+CREATE TABLE [dbo].[BST](
+	[N] [int] NULL
+	, [P] [int] NULL
+) ON [PRIMARY]
+GO
+
+
+INSERT INTO [DBO].[BST] ([N], [P]) VALUES
+	(1, 2)
+	, (3, 2)
+	, (5, 6)
+	, (7, 6)
+	, (2, 4)
+	, (6, 4)
+	, (4, 15)
+	, (8, 9)
+	, (10, 9)
+	, (12, 13)
+	, (14, 13)
+	, (9, 11)
+	, (13, 11)
+	, (11, 15)
+	, (15, NULL)
+
+/*
+	You are given a table, BST, containing two columns: N and P, where N represents the value of a node in Binary Tree, and P is the parent of N.
+
+	Write a query to find the node type of Binary Tree ordered by the value of the node. Output one of the following for each node:
+	
+	Root: If node is root node.
+	Leaf: If node is leaf node.
+	Inner: If node is neither root nor leaf node.
+*/
+
+
+
+DECLARE @SIZE INT = (SELECT COUNT(1) FROM [BST])+1
+DECLARE @CAMADAS INT = (SELECT LOG(@SIZE, 2)
+
+DECLARE @ROOT INT = (SELECT N FROM [BST] WHERE P IS NULL)
+
+
+SELECT * FROM [BST] ORDER BY P
