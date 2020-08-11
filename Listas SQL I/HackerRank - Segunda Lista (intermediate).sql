@@ -85,7 +85,10 @@ ORDER BY [occupation_count], [occupation];
 
 
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
-/* Print Prime Numbers - Write a query to print all prime numbers less than or equal to 1000. Print your result on a single line, and use the ampersand (&) character as your separator (instead of a space). Output Example: 2&3&5&7 */
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* Print Prime Numbers - Write a query to print all prime numbers less than or equal to 1000. Print your result on a single line, and use the ampersand (&) character as your separator (instead of a space).
+ Output Example: 2&3&5&7 */
 
 
 DECLARE @RANGE [int] = 1
@@ -116,4 +119,55 @@ PRINT(@PRIMOS)
 
 
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
-/*  */
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* Table OCCUPATIONS */
+
+DROP TABLE IF EXISTS [DBO].[OCCUPATIONS];
+CREATE TABLE [DBO].[OCCUPATIONS] (
+	[NAME][varchar](15) NOT NULL
+	, [OCCUPATION][varchar](10) NOT NULL
+) ON [PRIMARY]
+GO
+
+INSERT INTO [DBO].[OCCUPATIONS] ([NAME], [OCCUPATION]) VALUES
+	('Ashley', 'Professor')
+	,('Samantha', 'Actor')
+	,('Julia', 'Doctor')
+	,('Britney', 'Professor')
+	,('Maria', 'Professor')
+	,('Meera', 'Professor')
+	,('Priya', 'Doctor')
+	,('Priyanka', 'Professor')
+	,('Jennifer', 'Actor')
+	,('Ketty', 'Actor')
+	,('Belvet', 'Professor')
+	,('Naomi', 'Professor')
+	,('Jane', 'Singer')
+	,('Jenny', 'Singer')
+	,('Kristeen', 'Singer')
+	,('Christeen', 'Singer')
+	,('Eve', 'Actor')
+	,('Aamina', 'Doctor')
+
+
+/*
+	P1 - Pivot the Occupation column in OCCUPATIONS so that each Name is sorted alphabetically and displayed underneath its
+	corresponding Occupation. The output column headers should be Doctor, Professor, Singer, and Actor, respectively.
+*/
+
+SELECT
+    MIN(CASE WHEN OCCUPATION = 'Doctor' THEN NAME ELSE NULL END) AS Doctor
+    , MIN(CASE WHEN OCCUPATION = 'Professor' THEN NAME ELSE NULL END) AS Professor
+    , MIN(CASE WHEN OCCUPATION = 'Singer' THEN NAME ELSE NULL END) AS Singer
+    , MIN(CASE WHEN OCCUPATION = 'Actor' THEN NAME ELSE NULL END) AS Actor
+FROM (
+    SELECT
+        a.Occupation
+        , a.Name
+        , (SELECT COUNT(*) FROM Occupations AS b
+          WHERE a.Occupation = b.Occupation AND a.Name > b.Name) AS rnk
+    FROM Occupations a
+) AS c
+GROUP BY c.rnk
+ORDER BY c.rnk;

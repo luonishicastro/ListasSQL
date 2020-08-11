@@ -187,7 +187,7 @@ SELECT DISTINCT CITY FROM [STATION]
 WHERE LOWER(LEFT(CITY, 1)) IN ('a', 'e', 'i', 'o', 'u') AND LOWER(RIGHT(CITY, 1)) IN ('a', 'e', 'i', 'o', 'u');
 
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
-/* P8 - Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates. */
+/* P8 - Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates. */ -- (MS SQL SERVER)
 
 SELECT DISTINCT CITY FROM [STATION]
 WHERE LOWER(LEFT(CITY, 1)) NOT IN ('a', 'e', 'i', 'o', 'u');
@@ -259,7 +259,7 @@ ORDER BY RIGHT([NAME], 3), ID ASC;
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
-/* Table Employee */
+/* Table EMPLOYEE */
 
 DROP TABLE IF EXISTS [DBO].[EMPLOYEE];
 CREATE TABLE [DBO].[EMPLOYEE] (
@@ -382,3 +382,62 @@ SELECT [NAME] FROM [EMPLOYEE] ORDER BY [NAME];
 
 SELECT [NAME] FROM [EMPLOYEE] WHERE [SALARY] > 2000 AND [MONTHS] < 10
 ORDER BY [EMPLOYEE_ID] ASC;
+
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* Table TRIANGLES */
+
+DROP TABLE IF EXISTS [DBO].[TRIANGLES];
+CREATE TABLE [DBO].[TRIANGLES] (
+	[A][int] NOT NULL
+	, [B][int] NOT NULL
+	, [C][int] NOT NULL
+) ON [PRIMARY]
+GO
+
+INSERT INTO [DBO].[TRIANGLES] ([A], [B], [C]) VALUES
+	(10, 10, 10)
+	, (11, 11, 11)
+	, (30, 32, 30)
+	, (40, 40, 40)
+	, (20, 20, 21)
+	, (21, 21, 21)
+	, (20, 22, 21)
+	, (20, 20, 40)
+	, (20, 22, 21)
+	, (30, 32, 41)
+	, (50, 22, 51)
+	, (20, 12, 61)
+	, (20, 22, 50)
+	, (50, 52, 51)
+	, (80, 80, 80)
+
+
+/*
+	P1 - Write a query identifying the type of each record in the TRIANGLES table using its three side lengths.
+	Output one of the following statements for each record in the table:
+
+	>Equilateral: It's a triangle with  sides of equal length.
+	>Isosceles: It's a triangle with  sides of equal length.
+	>Scalene: It's a triangle with  sides of differing lengths.
+	>Not A Triangle: The given values of A, B, and C don't form a triangle.
+
+*/
+
+SELECT
+    IIF(A+B<=C OR A+C<=B OR B+C<=A, 'Not A Triangle'
+		, IIF((A = B AND A <> C) OR (B = C AND A <> C) OR (A = C AND A <> B), 'Isosceles'
+			, IIF(A = B AND B = C, 'Equilateral', 'Scalene')))									AS TRIANGLE_TYPE
+FROM TRIANGLES;
+
+
+--				(MySQL)
+--				SELECT
+--				    IF(A+B<=C OR A+C<=B OR B+C<=A, "Not A Triangle"
+--						, IF((A = B AND A <> C) OR (B = C AND A <> C) OR (A = C AND A <> B), "Isosceles"
+--							, IF(A = B AND B = C, "Equilateral", "Scalene"))) AS TRIANGLE_TYPE
+--				FROM TRIANGLES;
+
+
