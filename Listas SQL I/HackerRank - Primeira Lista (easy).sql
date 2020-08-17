@@ -525,9 +525,63 @@ WHERE COUNTRYCODE = 'JPN';
 
 SELECT MAX(POPULATION)-MIN(POPULATION) FROM CITY;
 
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* Table EMPLOYEE */
+
+DROP TABLE IF EXISTS [DBO].[EMPLOYEES];
+CREATE TABLE [DBO].[EMPLOYEES] (
+	[ID][int] NOT NULL
+	, [NAME][varchar](10) NOT NULL
+	, [SALARY][int] NOT NULL
+) ON [PRIMARY]
+GO
+
+INSERT INTO [DBO].[EMPLOYEES] ([ID], [NAME], [SALARY]) VALUES
+	(1, 'Ashley', 2340)
+	, (2, 'Julia', 1198)
+	, (3, 'Britney', 9009)
+	, (4, 'Kristeen', 2341)
+	, (5, 'Dyana', 9990)
+	, (6, 'Diana', 8011)
+	, (7, 'Jenny', 2341)
+	, (8, 'Christeen', 2342)
+	, (9, 'Meera', 2343)
+	, (10, 'Priya', 2344)
+	, (11, 'Priyanka', 2345)
+	, (12, 'Paige', 2346)
+	, (13, 'Jane', 2347)
+	, (14, 'Belvet', 2348)
+	, (15, 'Scarlet', 2349)
+	, (16, 'Salma', 9087)
+	, (17, 'Amanda', 7777)
+	, (18, 'Aamina', 5500)
+	, (19, 'Amina', 2570)
+	, (20, 'Ketty', 2007)
+
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* The Blunder */
+/* P1 - Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's 0 key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeroes removed), and the actual average salary. */
+
+
+
+; WITH CTE AS (
+	SELECT
+		ID
+		, NAME
+		, CAST(REPLACE(CAST(SALARY AS VARCHAR(4)), '0', '') AS NUMERIC(7,2)) AS SALARY
+	FROM EMPLOYEES
+)
+SELECT
+	CEILING(AVG(CAST(A.SALARY AS NUMERIC(10,2)))-AVG(B.SALARY))
+FROM EMPLOYEES A
+LEFT JOIN CTE B
+	ON A.ID = B.ID
+
 
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
-/* The Blunder */
-/* P1 - Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's 0 key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeroes removed), and the actual average salary. */
+	
