@@ -131,6 +131,29 @@ SELECT * FROM CITY WHERE COUNTRYCODE = 'JPN';
 SELECT NAME FROM CITY WHERE COUNTRYCODE = 'JPN';
 
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P7 - Query a count of the number of cities in CITY having a Population larger than 100.000 */
+
+SELECT COUNT(1) FROM [CITY]
+WHERE POPULATION > 100000;
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P8 - Query the total population of all cities in CITY where District is California. */
+
+SELECT SUM(POPULATION) FROM [CITY]
+WHERE DISTRICT = 'California';
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P9 - Query the average population of all cities in CITY where District is California. */
+
+SELECT AVG(POPULATION) FROM [CITY]
+WHERE DISTRICT = 'California';
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P10 - Query the average population for all cities in CITY, rounded down to the nearest integer. */
+
+SELECT AVG(POPULATION) FROM [CITY];
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 /* Table STATION */
