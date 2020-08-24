@@ -669,4 +669,41 @@ LEFT JOIN CTE B
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
-	
+/* Table COUNTRY */
+
+DROP TABLE IF EXISTS [DBO].[COUNTRY];
+CREATE TABLE [dbo].[COUNTRY](
+	[CODE] [varchar](3) NOT NULL
+	, [NAME] [varchar](44) NOT NULL
+	, [CONTINENT] [varchar](13) NOT NULL
+	, [REGION] [varchar](25) NOT NULL
+	, [SURFACEAREA] [int] NOT NULL
+	, [INDEPYEAR] [varchar](5) NOT NULL
+	, [POPULATION] [int] NOT NULL
+	, [LIFEEXPECTANCY] [varchar](4) NOT NULL
+	, [GNP] [int] NOT NULL
+	, [GNPOLD] [varchar](9) NOT NULL
+	, [LOCALNAME] [varchar](44) NOT NULL
+	, [GOVERNMENTFORM] [varchar](44) NOT NULL
+	, [HEADOFSTATE] [varchar](32) NOT NULL
+	, [CAPITAL]	[varchar](4) NOT NULL
+	, [CODE2] [varchar](2) NOT NULL
+) ON [PRIMARY]
+GO
+
+
+
+
+INSERT INTO [DBO].[COUNTRY]
+	([CODE], [NAME], [CONTINENT], [REGION], [SURFACEAREA], [INDEPYEAR], [POPULATION], [LIFEEXPECTANCY], [GNP], [GNPOLD], [LOCALNAME], [GOVERNMENTFORM], [HEADOFSTATE], [CAPITAL], [CODE2])
+VALUES
+('ABW', 'Aruba', 'North America', 'Caribbean', 193, NULL, 103000, 78.4, 828, 793.0, 'Aruba', 'Nonmetropolitan', 'Territory of The Netherlands', 'Beatrix', '129', 'AW')
+, ('AFG', Afghanistan Asia Southern and Central Asia 652090 1919 22720000 45.9 5976 NULL Afganistan/Afqanestan Islamic Emirate Mohammad Omar ,'1', 'AF')
+, ('AIA', Anguilla North America Caribbean 96 NULL 8000 76.1 63 NULL Anguilla Dependent Territory of the UK Elisabeth II '62', 'AI')
+, ('AND', Andorra Europe Southern Europe 468 1278 78000 83.5 1630 NULL Andorra Parliamentary Coprincipality NULL '55', 'AD')
+, ('ANT', Netherlands Antilles North America Caribbean 800 NULL 217000 74.7 1941 NULL Nederlandse Antillen Nonmetropolitan Territory of The Netherlands Beatrix '33', 'AN')
+, ('ASM', American Samoa Oceania Polynesia 199 NULL 68000 75.1 334 NULL Amerika Samoa US Territory George W. Bush '54', 'AS')
+, ('ATG', Antigua and Barbuda North America Caribbean 442 1981 68000 70.5 612 584.0 Antigua and Barbuda Constitutional Monarchy Elisabeth II '63', 'AG')
+, ('AUS', Australia Oceania Australia and New Zealand 7741220 1901 18886000 79.8 351182 392911.0 Australia Constitutional Monarchy, Federation Elisabeth II '135', 'AU')
+, ('BDI', Burundi Africa Eastern Africa 27834 1962 6695000 46.2 903 982.0 Burundi/Uburundi Republic Pierre Buyoya '552', 'BI')
+, ('BGD', Bangladesh Asia Southern and Central Asia 143998 1971 129155000 60.2 32852 31966.0 Bangladesh Republic Shahabuddin Ahmad '150', 'BD')
