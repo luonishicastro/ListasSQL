@@ -682,10 +682,10 @@ CREATE TABLE [dbo].[COUNTRY](
 	, [POPULATION] [int] NOT NULL
 	, [LIFEEXPECTANCY] [varchar](4) NOT NULL
 	, [GNP] [int] NOT NULL
-	, [GNPOLD] [varchar](9) NOT NULL
+	, [GNPOLD] [varchar](9) NULL
 	, [LOCALNAME] [varchar](44) NOT NULL
 	, [GOVERNMENTFORM] [varchar](44) NOT NULL
-	, [HEADOFSTATE] [varchar](32) NOT NULL
+	, [HEADOFSTATE] [varchar](32) NULL
 	, [CAPITAL]	[varchar](4) NOT NULL
 	, [CODE2] [varchar](2) NOT NULL
 ) ON [PRIMARY]
@@ -697,13 +697,43 @@ GO
 INSERT INTO [DBO].[COUNTRY]
 	([CODE], [NAME], [CONTINENT], [REGION], [SURFACEAREA], [INDEPYEAR], [POPULATION], [LIFEEXPECTANCY], [GNP], [GNPOLD], [LOCALNAME], [GOVERNMENTFORM], [HEADOFSTATE], [CAPITAL], [CODE2])
 VALUES
-('ABW', 'Aruba', 'North America', 'Caribbean', 193, NULL, 103000, 78.4, 828, 793.0, 'Aruba', 'Nonmetropolitan', 'Territory of The Netherlands', 'Beatrix', '129', 'AW')
-, ('AFG', Afghanistan Asia Southern and Central Asia 652090 1919 22720000 45.9 5976 NULL Afganistan/Afqanestan Islamic Emirate Mohammad Omar ,'1', 'AF')
-, ('AIA', Anguilla North America Caribbean 96 NULL 8000 76.1 63 NULL Anguilla Dependent Territory of the UK Elisabeth II '62', 'AI')
-, ('AND', Andorra Europe Southern Europe 468 1278 78000 83.5 1630 NULL Andorra Parliamentary Coprincipality NULL '55', 'AD')
-, ('ANT', Netherlands Antilles North America Caribbean 800 NULL 217000 74.7 1941 NULL Nederlandse Antillen Nonmetropolitan Territory of The Netherlands Beatrix '33', 'AN')
-, ('ASM', American Samoa Oceania Polynesia 199 NULL 68000 75.1 334 NULL Amerika Samoa US Territory George W. Bush '54', 'AS')
-, ('ATG', Antigua and Barbuda North America Caribbean 442 1981 68000 70.5 612 584.0 Antigua and Barbuda Constitutional Monarchy Elisabeth II '63', 'AG')
-, ('AUS', Australia Oceania Australia and New Zealand 7741220 1901 18886000 79.8 351182 392911.0 Australia Constitutional Monarchy, Federation Elisabeth II '135', 'AU')
-, ('BDI', Burundi Africa Eastern Africa 27834 1962 6695000 46.2 903 982.0 Burundi/Uburundi Republic Pierre Buyoya '552', 'BI')
-, ('BGD', Bangladesh Asia Southern and Central Asia 143998 1971 129155000 60.2 32852 31966.0 Bangladesh Republic Shahabuddin Ahmad '150', 'BD')
+	('BDI', 'Burundi', 'Africa', 'Eastern Africa', 27834, 1962, 6695000, 46.2, 903, 982.0, 'Burundi/Uburundi', 'Republic', 'Pierre Buyoya', '552', 'BI')
+	, ('AND', 'Andorra', 'Europe', 'Southern Europe', 468, 1278, 78000, 83.5, 1630, NULL, 'Andorra Parliamentary', 'Coprincipality', NULL, '55', 'AD')
+	, ('BGR', 'Bulgaria', 'Europe', 'Eastern Europe', 110994, 1908, 8190900, 70.9, 12178, 10169.0, 'Balgarija', 'Republic', 'Petar Stojanov', '539', 'BG')
+	, ('BWA', 'Botswana', 'Africa', 'Southern Africa', 581730, 1966, 1622000, 39.3, 4834, 4935.0, 'Botswana', 'Republic', 'Festus G. Mogae', '204', 'BW')
+	, ('AFG', 'Afghanistan', 'Asia', 'Southern and Central Asia', 652090, 1919, 22720000, 45.9, 5976, NULL, 'Afganistan/Afqanestan', 'Islamic Emirate', 'Mohammad Omar', '1', 'AF')
+	, ('BHR', 'Bahrain', 'Asia', 'Middle East', 694, 1971, 617000, 73.0, 6366, 6097.0, 'Al-Bahrayn', 'Monarchy (Emirate)', 'Hamad ibn Isa al-Khalifa', '149', 'BH')
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P1 - Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'. Note: CITY.CountryCode and COUNTRY.Code are matching key columns. */
+
+
+SELECT CITY.NAME FROM [CITY]
+INNER JOIN [COUNTRY]
+	ON CITY.COUNTRYCODE = COUNTRY.CODE
+	AND COUNTRY.CONTINENT = 'Africa';
+
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P2 - Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent) and their respective average city populations (CITY.Population) rounded down to the nearest integer.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns. */
+
+
+SELECT
+	COUNTRY.CONTINENT
+	, AVG(CITY.POPULATION)
+FROM [CITY]
+INNER JOIN [COUNTRY]
+	ON CITY.COUNTRYCODE = COUNTRY.CODE
+GROUP BY COUNTRY.CONTINENT;
+
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P3 - Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns. */
+
+SELECT SUM(CITY.POPULATION)
+FROM CITY
+INNER JOIN COUNTRY
+	ON CITY.COUNTRYCODE = COUNTRY.CODE
+WHERE COUNTRY.CONTINENT = 'Asia';
