@@ -537,6 +537,12 @@ SELECT [NAME] FROM [EMPLOYEE] ORDER BY [NAME];
 SELECT [NAME] FROM [EMPLOYEE] WHERE [SALARY] > 2000 AND [MONTHS] < 10
 ORDER BY [EMPLOYEE_ID] ASC;
 
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P3 - We define an employee's total earnings to be their monthly salary x months worked, and the maximum total earnings to be the maximum total earnings for any employee in the Employee table.
+Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as 2 space-separated integers. */
+
+SELECT TOP 1 MONTHS*SALARY, COUNT(1) FROM [EMPLOYEE]
+GROUP BY MONTHS*SALARY ORDER BY MONTHS*SALARY DESC;
 
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
