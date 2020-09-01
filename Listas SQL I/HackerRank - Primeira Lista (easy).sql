@@ -743,3 +743,65 @@ FROM CITY
 INNER JOIN COUNTRY
 	ON CITY.COUNTRYCODE = COUNTRY.CODE
 WHERE COUNTRY.CONTINENT = 'Asia';
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* P1 - P(R) represents a pattern drawn by Julia in R rows. The following pattern represents P(5):
+
+* * * * * 
+* * * * 
+* * * 
+* * 
+*
+
+Write a query to print the pattern P(20).
+ */
+
+
+DECLARE @i int = 20
+DECLARE @p varchar(50) = ''
+WHILE (@i >= 1)
+BEGIN
+	DECLARE @j int = @i
+	WHILE (@j >= 1)
+	BEGIN
+		SET @p = @p + '* '
+		SET @j = @j -1
+	END
+
+	PRINT(@p)
+	SET @p = ''
+	SET @i = @i -1
+END;
+
+
+
+
+/* P2 - P(R) represents a pattern drawn by Julia in R rows. The following pattern represents P(5):
+
+* 
+* * 
+* * * 
+* * * * 
+* * * * *
+
+Write a query to print the pattern P(20).
+*/
+
+DECLARE @k int = 1
+DECLARE @r varchar(50) = ''
+WHILE (@k <= 20)
+BEGIN
+	DECLARE @n int = @k
+	WHILE (@n >= 1)
+	BEGIN
+		SET @r = @r + '* '
+		SET @n = @n - 1
+	END
+
+	PRINT(@r)
+	SET @r = ''
+	
+	SET @k = @k+1
+END
