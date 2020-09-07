@@ -346,25 +346,6 @@ DECLARE @LAT_N2 DECIMAL(6, 4) = (SELECT CAST(MIN(LAT_N) AS DECIMAL(6, 4)) AS lat
 SELECT CAST(LONG_W AS DECIMAL(6, 4)) as lon FROM [STATION] WHERE CAST(LAT_N AS DECIMAL(7, 4)) = @LAT_N2;
 
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
-/* P17 - Consider P1(a,b) and P2(c,d) to be two points on a 2D plane.
-	#a happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
-	#b happens to equal the minimum value in Western Longitude (LONG_W in STATION).
-	#c happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
-	#d happens to equal the maximum value in Western Longitude (LONG_W in STATION).
-
-	Query the Manhattan Distance between points P1 and P2 and round it to a scale of 4 decimal places.
-*/
-
-
-DECLARE @A DECIMAL(6, 4) = (SELECT CAST(MIN(LAT_N) AS DECIMAL(6, 4)) FROM [STATION])
-DECLARE @B DECIMAL(6, 4) = (SELECT CAST(MIN(LONG_W) AS DECIMAL(6, 4)) FROM [STATION])
-DECLARE @C DECIMAL(8, 4) = (SELECT CAST(MAX(LAT_N) AS DECIMAL(8, 4)) FROM [STATION])
-DECLARE @D DECIMAL(8, 4) = (SELECT CAST(MAX(LONG_W) AS DECIMAL(8, 4)) FROM [STATION])
-DECLARE @CAT1 DECIMAL(10, 4) = POWER((SELECT @C - @A), 2)
-DECLARE @CAT2 DECIMAL(10, 4) = POWER((SELECT @D - @B), 2)
-SELECT POWER(@CAT1 + @CAT2, 0.5) AS dist;
-
---=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 --=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 /* Table STUDENTS */

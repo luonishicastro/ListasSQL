@@ -222,3 +222,63 @@ DECLARE @ROOT INT = (SELECT N FROM [BST] WHERE P IS NULL)
 
 
 SELECT * FROM [BST] ORDER BY P
+
+
+
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
+/* Table STATION */
+
+
+DROP TABLE IF EXISTS [DBO].[STATION];
+CREATE TABLE [dbo].[STATION](
+	[ID] [int] NULL
+	, [CITY] [varchar](21) NULL
+	, [STATE] [varchar](21) NULL
+	, [LAT_N] [numeric](11, 8) NULL
+	, [LONG_W] [numeric](11, 8) NULL
+) ON [PRIMARY]
+GO
+
+
+INSERT INTO [DBO].[STATION] ([ID], [CITY], [STATE], [LAT_N], [LONG_W]) VALUES
+	(794, 'Kissee Mills', 'MO', 139.65036520, 73.41609884)
+	, (824, 'Loma Mar', 'CA', 48.69788572, 130.53935410)
+	, (603, 'Sandy Hook', 'CT', 72.33748014, 148.24007690)
+	, (478, 'Tipton', 'IN', 33.54792701, 97.94286036)
+	, (619, 'Arlington', 'CO', 75.17993079, 92.94615894)
+	, (711, 'Turner', 'AR', 50.24380534, 101.45801630)
+	, (839, 'Slidell', 'LA', 85.32270304, 151.87432760)
+	, (411, 'Negreet', 'LA', 98.97071940, 105.33761150)
+	, (588, 'Glencoe', 'KY', 46.38739244, 136.04270270)
+	, (665, 'Chelsea', 'IA', 98.72210937, 59.68913002)
+	, (342, 'Chignik Lagoon', 'AK', 103.19952640, 153.00842730)
+	, (733, 'Pelahatchie', 'MS', 38.58161595, 28.11950703)
+	, (441, 'Hanna City', 'IL', 50.98932987, 136.78110100)
+	, (811, 'Dorrance', 'KS', 102.08883160, 121.56143720)
+	, (698, 'Albany', 'CA', 49.75112765, 80.21211317)
+	, (649, 'Pengilly', 'MN', 25.07352606, 154.06429180)
+	, (694, 'Ozona' ,'FL', 144.98906270, 120.88008760)
+	, (743, 'De Tour Village', 'MI', 25.41948948, 25.10565434)
+	, (867, 'Beaver Island', 'MI', 81.88447769, 164.87604770)
+
+/*
+	WEATHER OBSERVATION STATION 18
+
+	Consider P1(a,b) and P2(c,d) to be two points on a 2D plane.
+	#a happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+	#b happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+	#c happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+	#d happens to equal the maximum value in Western Longitude (LONG_W in STATION).
+
+	Query the Manhattan Distance between points P1 and P2 and round it to a scale of 4 decimal places.
+*/
+
+
+
+DECLARE @A DECIMAL(6, 4) = (SELECT CAST(MIN(LAT_N) AS DECIMAL(6, 4)) FROM [STATION])
+DECLARE @B DECIMAL(6, 4) = (SELECT CAST(MIN(LONG_W) AS DECIMAL(6, 4)) FROM [STATION])
+DECLARE @C DECIMAL(8, 4) = (SELECT CAST(MAX(LAT_N) AS DECIMAL(8, 4)) FROM [STATION])
+DECLARE @D DECIMAL(8, 4) = (SELECT CAST(MAX(LONG_W) AS DECIMAL(8, 4)) FROM [STATION])
+SELECT ABS(@A-@C)+ABS(@B-@D)
